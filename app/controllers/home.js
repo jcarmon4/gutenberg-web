@@ -35,11 +35,11 @@ router.post('/doc', function (req, res, next) {
     });
     console.log("Sorted docs");
     console.dir(sortedDocsArray);
-    // res.render('index', {
-    //   title: 'Gestión de Articulos',
-    //   baseUrl: config.baseUrl,
-    //   articles: sortedDocsArray
-    // });
+    res.render('documentDetail', {
+      title: 'Gestión de Articulos',
+      baseUrl: config.baseUrl,
+      articles: sortedDocsArray
+    });
   }).catch(function (error) {
     console.log("Promise relatedDocumentsFromService Rejected");
     console.error(error);
