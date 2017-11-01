@@ -1,8 +1,7 @@
 var express = require('express'),
   config = require('../../config/config'),
   router = express.Router(),
-  redis = require('redis'),
-  db = require('../models');
+  redis = require('redis');
 
 var SPECIAL_CHARACTERS_RE = new RegExp(/[^A-Za-z0-9]+/gi);
 
@@ -15,12 +14,9 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  db.Article.findAll().then(function (articles) {
-    res.render('index', {
-      title: 'Gutenberg',
-      baseUrl: '/',
-      articles: articles
-    });
+  res.render('index', {
+    title: 'Gutenberg search',
+    baseUrl: '/'
   });
 });
 
@@ -45,6 +41,14 @@ router.post('/doc', function (req, res, next) {
   }).catch(function (error) {
     console.log("Promise relatedDocumentsFromService Rejected");
     console.error(error);
+  });
+});
+
+router.get('/about', function (req, res, next) {
+  console.log("Paso por about");
+  res.render('about', {
+    title: 'About',
+    baseUrl: '/'
   });
 });
 
@@ -113,7 +117,7 @@ router.get('/search', function (req, res, next) {
               console.log("Unique Docs");
               console.dir(uniqueDocsSet);
 
-              dotProduct(res, uniqueDocsSet, wordWithTfidfMap, queryMagnitude);
+              dotProduct(res, query, uniqueDocsSet, wordWithTfidfMap, queryMagnitude);
             }
           }).catch(function (error) {
             console.log("Promise getDocsByWord Rejected");
@@ -165,7 +169,7 @@ var getDocsByWordFromService = function(word) {
   });
 };
 
-function dotProduct(res, uniqueDocsSet, wordWithTfidfMap, queryMagnitude){
+function dotProduct(res, query, uniqueDocsSet, wordWithTfidfMap, queryMagnitude){
   var docNum = 0;
   var similarityByDoc = [];
   if (uniqueDocsSet.size > 0) {
@@ -219,7 +223,10 @@ function dotProduct(res, uniqueDocsSet, wordWithTfidfMap, queryMagnitude){
     });
   } else {
     console.log("There aren't docs");
-    res.send('<script>alert("No hay resultados.");</script>')
+    res.render('noResults', {
+        title: 'No Results',
+        query: query
+      });
   }
 }
 
