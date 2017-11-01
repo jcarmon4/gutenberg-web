@@ -3,7 +3,26 @@
 
 
 <div class="container">
-
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Document</th>
+        <th>Similarity</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for(var i=0; i<docs.length; i++) {%>
+      <tr>
+        <td><%= i %></td>
+        <td><%= docs[i][0] %></td>
+        <td><%= docs[i][1] %></td>
+      </tr>
+      <% } %>
+      </tbody>
+    </table>
+  </div>
 
 
   <!-- Main component for a primary marketing message or call to action -->
@@ -13,7 +32,6 @@
     <p>To see the difference between static and fixed top navbars, just scroll.</p>
     <p>
       <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-      <h1><%- q %></h1>
     </p>
 
   </div>
