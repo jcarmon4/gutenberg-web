@@ -16,7 +16,7 @@
       <% for(var i=0; i<docs.length; i++) {%>
       <tr>
         <td><%= i %></td>
-        <td><%= docs[i][0] %></td>
+        <td><a id="detail" value="<%= docs[i][0] %>" href="#"><%= docs[i][0] %></a></td>
         <td><%= docs[i][1] %></td>
       </tr>
       <% } %>
@@ -47,5 +47,30 @@
 <script src="../../public/js/bootstrap.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+<script>
+  $('document').ready(function () {
+    $('#detail').click(function () {
+        var docname = $(this).attr('value');
+      console.log('LLego a detail function');
+      console.log(docname);
+      $.ajax({
+        url: '/docs',
+        method: 'POST',
+        data: {doc: docname},
+        success: function (user) {
+          console.log("User storage succeeded.");
+          console.log(user);
+        },
+        error: function (error) {
+          console.log("User storage failed.");
+          console.log(error);
+          alert("Ocurrió un error registrando tus datos. Actualiza la página y vuelve " +
+            "a intentarlo.");
+        }
+      });
+    });
+  });
+</script>
 
 <% include footer %>
