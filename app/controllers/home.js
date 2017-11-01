@@ -1,8 +1,8 @@
 var express = require('express'),
   config = require('../../config/config'),
   router = express.Router(),
+  redis = require('redis'),
   db = require('../models');
-var redis = require('redis');
 
 var redisClient = redis.createClient("redis://h:padd1089bb3eef4b1bf8c5cd5019461d8f7ad76b4c6960640f882ce0f2a9c86a6@ec2-34-224-49-43.compute-1.amazonaws.com:65139");
 redisClient.select(1);
@@ -16,6 +16,7 @@ router.get('/', function (req, res, next) {
   db.Article.findAll().then(function (articles) {
     res.render('index', {
       title: 'Gutenberg',
+      baseUrl: '/',
       articles: articles
     });
   });
@@ -43,6 +44,16 @@ router.post('/doc', function (req, res, next) {
   }).catch(function (error) {
     console.log("Promise relatedDocumentsFromService Rejected");
     console.error(error);
+  });
+});
+
+router.get('/search', function (req, res, next) {
+  console.log(req.query.q);
+  var query = req.query.q;
+  res.render('results', {
+    title: 'Results',
+    baseUrl: config.baseUrl,
+    q: query
   });
 });
 
