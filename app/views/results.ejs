@@ -1,7 +1,5 @@
 <% include header %>
 
-
-
 <div class="container">
   <div class="table-responsive">
     <table class="table table-striped">
@@ -16,61 +14,69 @@
       <% for(var i=0; i<docs.length; i++) {%>
       <tr>
         <td><%= i %></td>
-        <td><a id="detail" value="<%= docs[i][0] %>" href="#"><%= docs[i][0] %></a></td>
+        <td><a class="detail" value="<%= docs[i][0] %>" ><%= docs[i][0] %></a></td>
         <td><%= docs[i][1] %></td>
       </tr>
       <% } %>
       </tbody>
     </table>
   </div>
-
-
-  <!-- Main component for a primary marketing message or call to action -->
-  <div class="jumbotron">
-    <h1>Inverted index</h1>
-    <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-    <p>To see the difference between static and fixed top navbars, just scroll.</p>
-    <p>
-      <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-    </p>
-
+  <div id="target">
   </div>
-
 </div> <!-- /container -->
-
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../public/js/bootstrap.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
 <script>
-  $('document').ready(function () {
-    $('#detail').click(function () {
-        var docname = $(this).attr('value');
-      console.log('LLego a detail function');
-      console.log(docname);
-      $.ajax({
-        url: '/docs',
-        method: 'POST',
-        data: {doc: docname},
-        success: function (user) {
-          console.log("User storage succeeded.");
-          console.log(user);
-        },
-        error: function (error) {
-          console.log("User storage failed.");
-          console.log(error);
-          alert("Ocurrió un error registrando tus datos. Actualiza la página y vuelve " +
-            "a intentarlo.");
-        }
-      });
+  $(document).ready(function(){
+    $('.detail').on('click', function(){
+      var docname = $(this).attr('value');
+      console.log('onclick is working.');
+      datailDoc(docname); //Your function
     });
   });
+
+  function datailDoc(docname){
+    console.log("var docname "+docname);
+    $.ajax({
+      url: '/doc',
+      timeout:30000,
+      method: 'POST',
+      data: {'doc': docname},
+      success: function(docs) {
+        var html;
+        html += '<div class="table-responsive">';
+        html += '<table class="table table-striped">';
+        html += '<thead>';
+        html += '<tr>';
+        html += '<th>#</th>';
+        html += '<th>Document</th>';
+        html += '<th>Similarity</th>';
+        html += '</tr>';
+        html += '</thead>';
+        html += '<tbody>';
+        for (var i = 0; i< docs.length; i++) {
+          html += '<tr>';
+          html += '<td>' + i + '</td>';
+          html += '<td>' + docs[i][0] + '</td>';
+          html += '<td>' + docs[i][1] + '</td>';
+          html += '</tr>';
+        }
+        html += '</tbody>';
+        html += '</table>';
+        html += '</div>';
+        $('#target').html(html);
+      },
+      error: function(error)
+      {
+        console.log(error);
+      }
+    });
+  }
 </script>
 
 <% include footer %>

@@ -28,6 +28,9 @@ router.post('/doc', function (req, res, next) {
   var query = req.body.doc;
   var sortedDocsArray = [];
   console.log(query);
+  if (query === null){
+    res.send('<script>alert("No se encuentra el documento solicitado.")</script>')
+  }
   relatedDocumentsFromService(query).then(function (docsMap) {
     console.dir(docsMap);
     Object.keys(docsMap).forEach(function (key){
@@ -38,11 +41,7 @@ router.post('/doc', function (req, res, next) {
     });
     console.log("Sorted docs");
     console.dir(sortedDocsArray);
-    res.render('documentDetail', {
-      title: 'Gestión de Articulos',
-      baseUrl: config.baseUrl,
-      articles: sortedDocsArray
-    });
+    res.send(sortedDocsArray);
   }).catch(function (error) {
     console.log("Promise relatedDocumentsFromService Rejected");
     console.error(error);
@@ -220,8 +219,7 @@ function dotProduct(res, uniqueDocsSet, wordWithTfidfMap, queryMagnitude){
     });
   } else {
     console.log("There aren't docs");
-    // There are no docs to examine.
-    //Send to a function(similarityByDoc);
+    res.send('<script>alert("No hay resultados.");</script>')
   }
 }
 
