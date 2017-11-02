@@ -7,15 +7,16 @@
       <tr>
         <th>#</th>
         <th>Document</th>
-        <th>Similarity</th>
+        <th>Relevance</th>
       </tr>
       </thead>
       <tbody>
       <% for(var i=0; i<docs.length; i++) {%>
+      <% var percent = docs[i][1] * 100 %>
       <tr>
         <td><%= i %></td>
         <td><a class="detail" value="<%= docs[i][0] %>" ><%= docs[i][0] %></a></td>
-        <td><%= docs[i][1] %></td>
+        <td><%= percent %> % </td>
       </tr>
       <% } %>
       </tbody>

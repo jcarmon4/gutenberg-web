@@ -5,9 +5,10 @@ var express = require('express'),
 
 var SPECIAL_CHARACTERS_RE = new RegExp(/[^A-Za-z0-9]+/gi);
 
-var redisClient = redis.createClient("redis://h:padd1089bb3eef4b1bf8c5cd5019461d8f7ad76b4c6960640f882ce0f2a9c86a6@ec2-34-224-49-43.compute-1.amazonaws.com:65139");
-redisClient.select(1);
-//var redisClient = redis.createClient({host:'localhost', port: '6379', db: 7});
+// var redisClient = redis.createClient("redis://h:padd1089bb3eef4b1bf8c5cd5019461d8f7ad76b4c6960640f882ce0f2a9c86a6@ec2-34-224-49-43.compute-1.amazonaws.com:65139");
+// redisClient.select(1);
+// var redisClient = redis.createClient({host:'localhost', port: '6379', db: 7});
+var redisClient = redis.createClient({host:'gutenberg-ir.redis.cache.windows.net', port: '6379', password: 'B4qWA879R/U2ldA3mWT5kcJSHrDXOijbd9ju+89PNhg=', db: 1});
 
 module.exports = function (app) {
   app.use('/', router);
@@ -15,7 +16,7 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
   res.render('index', {
-    title: 'Gutenberg search',
+    title: 'Gutenberg information retrieval',
     baseUrl: '/'
   });
 });
