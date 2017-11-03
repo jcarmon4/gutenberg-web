@@ -1,8 +1,9 @@
 <% include header %>
 
 <div class="container">
-
-
+  <% if (locals.alert) { %>
+    <div class="alert alert-danger" role="alert"> Please insert a key word in the search field. </div>
+  <% } %>
 
   <!-- Main component for a primary marketing message or call to action -->
   <div class="jumbotron">
