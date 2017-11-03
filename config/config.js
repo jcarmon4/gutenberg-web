@@ -32,7 +32,7 @@ var config = {
       name: 'gutenberg-web'
     },
     port: process.env.PORT || 3000,
-    db: process.env.REDIS_URL|| 'sqlite://localhost/gutenberg-web-production',
+    db: 'sqlite://localhost/gutenberg-web-production',
     storage: rootPath + 'data/gutenberg-web-production'
   }
 };
