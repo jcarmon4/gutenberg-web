@@ -26,13 +26,13 @@ var config = {
   },
 
   production: {
-    baseUrl: "/",
+    baseUrl: process.env.URL || 'http://localhost:3000',
     root: rootPath,
     app: {
       name: 'gutenberg-web'
     },
     port: process.env.PORT || 3000,
-    db: 'sqlite://localhost/gutenberg-web-production',
+    db: process.env.REDIS_URL|| 'sqlite://localhost/gutenberg-web-production',
     storage: rootPath + 'data/gutenberg-web-production'
   }
 };
