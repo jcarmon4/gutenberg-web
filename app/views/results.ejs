@@ -1,6 +1,8 @@
 <% include header %>
 
 <div class="container">
+  <h1>Results</h1>
+
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
@@ -11,7 +13,7 @@
       </tr>
       </thead>
       <tbody>
-      <% for(var i=0; i<docs.length; i++) {%>
+      <% for(var i=0; i< Math.min(10, docs.length); i++) {%>
       <% var percent = docs[i][1] * 100 %>
       <tr>
         <td><%= i %></td>
@@ -37,11 +39,11 @@
     $('.detail').on('click', function(){
       var docname = $(this).attr('value');
       console.log('onclick is working.');
-      datailDoc(docname); //Your function
+      detailDoc(docname); //Your function
     });
   });
 
-  function datailDoc(docname){
+  function detailDoc(docname){
     console.log("var docname "+docname);
     $.ajax({
       url: '/doc',
@@ -49,7 +51,9 @@
       method: 'POST',
       data: {'doc': docname},
       success: function(docs) {
-        var html;
+        var html = '';
+        html += '<hr>';
+        html += '<h2>Related documents for <strong>"'+ docname +'"</strong></h2>';
         html += '<div class="table-responsive">';
         html += '<table class="table table-striped">';
         html += '<thead>';
@@ -60,7 +64,7 @@
         html += '</tr>';
         html += '</thead>';
         html += '<tbody>';
-        for (var i = 0; i< docs.length; i++) {
+        for (var i = 0; i< Math.min(10, docs.length); i++) {
           html += '<tr>';
           html += '<td>' + i + '</td>';
           html += '<td>' + docs[i][0] + '</td>';

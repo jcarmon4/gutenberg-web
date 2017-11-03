@@ -55,12 +55,13 @@ router.get('/about', function (req, res, next) {
 
 router.get('/search', function (req, res, next) {
   var query = req.query.q;
+  query = query.trim();
   console.log(query);
   if (query.length === 0){
     res.render('index', {
       title: 'Gutenberg information retrieval',
       baseUrl: '/',
-      alert: 'No query'
+      alert: 'Please insert a key word in the search field.'
     });
   }
   var words = query.split(" ");
@@ -74,7 +75,7 @@ router.get('/search', function (req, res, next) {
       console.log("normWord NFD: "+normWord);
       normWord = normWord.replace(SPECIAL_CHARACTERS_RE, '');
       console.log("normWord RE: "+normWord);
-      normWord = word.toLowerCase();
+      normWord = normWord.toLowerCase();
       if ((normWord.length > 0) && (STOP_WORDS_ES.has(normWord) === false) && (STOP_WORDS_EN.has(normWord) === false)){
         wordsInQuery.push(normWord);
       }
@@ -82,6 +83,13 @@ router.get('/search', function (req, res, next) {
   });
 
   var wordWithQuantityMap = new Map();
+  if (wordsInQuery.length === 0){
+    res.render('index', {
+      title: 'Gutenberg information retrieval',
+      baseUrl: '/',
+      alert: 'It is not possible to process the given query.'
+    });
+  }
   wordsInQuery.forEach(function (word1) {
     var count = 0;
     wordsInQuery.forEach(function (word2) {
