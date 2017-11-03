@@ -127,9 +127,11 @@ router.get('/search', function (req, res, next) {
         var uniqueDocsSet = new Set();
         wordsInQuery.forEach(function (word, j) {
           getDocsByWordFromService(word).then(function(docs) {
-            docs.forEach(function (doc) {
-              uniqueDocsSet.add(doc);
-            });
+            for (var i = 0; i< Math.min(10, docs.length); i++) {
+              // Insert documents for every word to unify with the query.
+              uniqueDocsSet.add(docs[i]);
+            }
+            // Validate that the documents for every word have been retrieved.
             if ((j+1) === wordsInQuery.length){
               console.log("Unique Docs");
               console.dir(uniqueDocsSet);
