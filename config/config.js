@@ -26,7 +26,7 @@ var config = {
   },
 
   production: {
-    baseUrl: process.env.URL || 'http://localhost:3000',
+    url: process.env.URL || 'http://localhost:3000',
     root: rootPath,
     app: {
       name: 'gutenberg-web'
