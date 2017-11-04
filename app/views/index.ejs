@@ -1,22 +1,38 @@
 <% include header %>
-
+</br>
 <div class="container">
-  <% if (locals.alert) { %>
-    <div class="alert alert-danger" role="alert"><%= alert %></div>
-  <% } %>
+<% if (locals.alert) { %>
+<div class="alert alert-danger" role="alert"><%= alert %></div>
+<% } %>
 
-  <!-- Main component for a primary marketing message or call to action -->
+<!-- Main component for a primary marketing message or call to action -->
   <div class="jumbotron">
-    <h1>Gutenberg information retrieval</h1>
-    <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-    <p>To see the difference between static and fixed top navbars, just scroll.</p>
-    <p>
-      <a class="btn btn-lg btn-primary" href="/search?q=CIUTTI+Cristofano" role="button">Example &raquo;</a>
+    <h1>Gutenberg Information Retrieval</h1>
+    <p><a href="https://www.gutenberg.org/">Project Gutenberg</a> offers over 54,000 free eBooks to download or read them
+      online. It contains the world's great literature, especially older works for which copyright has expired.
+    </p>
+    <p> The Gutenberg Information Retrieval application uses the spanish eBooks of the Project Gutenberg to look for
+      the most important documents when the user enters a query. It also allows him to click a specific document in
+      order to see its community.
+    </p>
+    <p>To start using the application, just type one or more search terms in the upper bar and click the "Search"
+      button.
     </p>
   </div>
-  <word></word>
-
-</div> <!-- /container -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Example</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-4">
+        <input type="text" class="form-control " value="CIUTTI Cristofano" disabled>
+      </div>
+      <div class="col-md-3">
+        <a class="btn btn-outline-success btn-primary my-2 my-sm-0" href="/search?q=CIUTTI+Cristofano" role="button">Try &raquo;</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- Bootstrap core JavaScript

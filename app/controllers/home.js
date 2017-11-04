@@ -3,7 +3,7 @@ var express = require('express'),
   router = express.Router(),
   redis = require('redis');
 
-var SPECIAL_CHARACTERS_RE = new RegExp(/[^A-Za-z0-9]+/gi);
+var SPECIAL_CHARACTERS_RE = new RegExp(/[^A-Za-z]+/gi);
 
 // var redisClient = redis.createClient("redis://h:padd1089bb3eef4b1bf8c5cd5019461d8f7ad76b4c6960640f882ce0f2a9c86a6@ec2-34-224-49-43.compute-1.amazonaws.com:65139");
 // redisClient.select(1);
@@ -17,7 +17,7 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
   res.render('index', {
-    title: 'Gutenberg information retrieval',
+    title: 'Gutenberg Information Retrieval',
     baseUrl: '/'
   });
 });
@@ -60,7 +60,7 @@ router.get('/search', function (req, res, next) {
   console.log(query);
   if (query.length === 0){
     res.render('index', {
-      title: 'Gutenberg information retrieval',
+      title: 'Gutenberg Information Retrieval',
       baseUrl: '/',
       alert: 'Please insert a key word in the search field.'
     });
@@ -86,7 +86,7 @@ router.get('/search', function (req, res, next) {
   var wordWithQuantityMap = new Map();
   if (wordsInQuery.length === 0){
     res.render('index', {
-      title: 'Gutenberg information retrieval',
+      title: 'Gutenberg Information Retrieval',
       baseUrl: '/',
       alert: 'It is not possible to process the given query.'
     });

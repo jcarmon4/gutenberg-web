@@ -4,7 +4,7 @@ var path = require('path'),
 
 var config = {
   development: {
-    baseUrl: "/",
+    url: 'http://localhost:3000',
     root: rootPath,
     app: {
       name: 'gutenberg-web'
@@ -15,7 +15,7 @@ var config = {
   },
 
   test: {
-    baseUrl: "/nodeArticulos/",
+    baseUrl: 'http://localhost:3000',
     root: rootPath,
     app: {
       name: 'gutenberg-web'

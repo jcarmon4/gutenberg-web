@@ -7,17 +7,19 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>#</th>
-        <th>Document</th>
-        <th>Relevance</th>
+        <th width="10%">#</th>
+        <th width="60%">Document</th>
+        <th width="30%">Relevance</th>
       </tr>
       </thead>
       <tbody>
       <% for(var i=0; i< Math.min(10, docs.length); i++) {%>
+      <% var pathArray = docs[i][0].split("/") %>
+      <% var name = pathArray[pathArray.length-1] %>
       <% var percent = docs[i][1] * 100 %>
       <tr>
         <td><%= i %></td>
-        <td><a class="detail" value="<%= docs[i][0] %>" ><%= docs[i][0] %></a></td>
+        <td><a class="detail" value="<%= docs[i][0] %>" ><%= name %></a></td>
         <td><%= percent %> % </td>
       </tr>
       <% } %>
@@ -51,24 +53,28 @@
       method: 'POST',
       data: {'doc': docname},
       success: function(docs) {
+        var pathArray = docname.split("/");
+        var name = pathArray[pathArray.length-1];
         var html = '';
         html += '<hr>';
-        html += '<h2>Related documents for <strong>"'+ docname +'"</strong></h2>';
+        html += '<h2>Related documents for <strong>"'+ name +'"</strong></h2>';
         html += '<div class="table-responsive">';
         html += '<table class="table table-striped">';
         html += '<thead>';
         html += '<tr>';
-        html += '<th>#</th>';
-        html += '<th>Document</th>';
-        html += '<th>Similarity</th>';
+        html += '<th width="10%">#</th>';
+        html += '<th width="60%">Document</th>';
+        html += '<th width="30%">Similarity</th>';
         html += '</tr>';
         html += '</thead>';
         html += '<tbody>';
         for (var i = 0; i< Math.min(10, docs.length); i++) {
+          var pathArray = docs[i][0].split("/");
+          var name = pathArray[pathArray.length-1]
           html += '<tr>';
           html += '<td>' + i + '</td>';
-          html += '<td>' + docs[i][0] + '</td>';
-          html += '<td>' + docs[i][1] + '</td>';
+          html += '<td>' + name + '</td>';
+          html += '<td>' + docs[i][1] * 100 + ' % </td>';
           html += '</tr>';
         }
         html += '</tbody>';
