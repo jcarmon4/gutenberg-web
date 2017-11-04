@@ -8,7 +8,7 @@ var SPECIAL_CHARACTERS_RE = new RegExp(/[^A-Za-z0-9]+/gi);
 // var redisClient = redis.createClient("redis://h:padd1089bb3eef4b1bf8c5cd5019461d8f7ad76b4c6960640f882ce0f2a9c86a6@ec2-34-224-49-43.compute-1.amazonaws.com:65139");
 // redisClient.select(1);
 // var redisClient = redis.createClient({host:'localhost', port: '6379', db: 7});
-var redisClient = redis.createClient({host:process.env.AZURE_REDIS_URL_HOST, port: process.env.AZURE_REDIS_PORT, password: process.env.AZURE_REDIS_PASSWORD, db: 1});
+var redisClient = redis.createClient({host:process.env.AZURE_REDIS_URL_HOST, port: process.env.AZURE_REDIS_PORT, password: process.env.AZURE_REDIS_URL_PASSWORD, db: 1});
 //var redisClient = redis.createClient(process.env.REDIS_URL);
 
 module.exports = function (app) {
