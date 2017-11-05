@@ -1,7 +1,7 @@
 <% include header %>
 
 <div class="container">
-  <h1>Results</h1>
+  <h1>Results for <strong>"<%= query %>"</strong></h1>
 
   <div class="table-responsive">
     <table class="table table-striped">
@@ -18,7 +18,7 @@
       <% var name = pathArray[pathArray.length-1] %>
       <% var percent = docs[i][1] * 100 %>
       <tr>
-        <td><%= i %></td>
+        <td><%= i+1 %></td>
         <td><a class="detail" value="<%= docs[i][0] %>" ><%= name %></a></td>
         <td><%= percent %> % </td>
       </tr>
@@ -72,7 +72,7 @@
           var pathArray = docs[i][0].split("/");
           var name = pathArray[pathArray.length-1]
           html += '<tr>';
-          html += '<td>' + i + '</td>';
+          html += '<td>' + (i+1) + '</td>';
           html += '<td>' + name + '</td>';
           html += '<td>' + docs[i][1] * 100 + ' % </td>';
           html += '</tr>';
