@@ -8,10 +8,10 @@
   * [Features](#Features)
   * [Tech](#Tech)
   * [Development](#Development)
-    * [Database](###Database)
-    * [Feature implementation](###Featureimplementation)
+    * [Database](#Database)
+    * [Feature implementation](#Feature-implementation)
   * [Installation](#Installation)
-    * [Environment variables](###Environmentvariables)
+    * [Environment variables](#Environment-variables)
     * [Deploy](###Deploy)
 
 Gutenberg Information Retrieval is the final project for Big Data in Hadoop subject of EAFIT University.
@@ -100,7 +100,7 @@ $ npm install
 $ npm start
 ```
 
-For local release:
+To test local release:
 ```sh
 127.0.0.1:300
 ```
