@@ -57,7 +57,7 @@ router.get('/about', function (req, res, next) {
 router.get('/search', function (req, res, next) {
   var query = req.query.q;
   query = query.trim();
-  console.log(query);
+  console.log("query <"+query+"> length: "+query.length);
   if (query.length === 0){
     res.render('index', {
       title: 'Gutenberg Information Retrieval',
