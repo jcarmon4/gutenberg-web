@@ -130,7 +130,7 @@ router.get('/search', function (req, res, next) {
           getDocsByWordFromService(word).then(function(docs) {
             for (var i = 0; i< Math.min(10, docs.length); i++) {
               // Insert documents for every word to unify with the query.
-              uniqueDocsSet.add(docs[i]);
+              uniqueDocsSet.add(docs[i].trim());
             }
             // Validate that the documents for every word have been retrieved.
             if ((j+1) === wordsInQuery.length){
@@ -197,7 +197,6 @@ function dotProduct(res, query, uniqueDocsSet, wordWithTfidfMap, queryMagnitude)
     uniqueDocsSet.forEach(function (doc) {
       var resNum = 0;
       var dotProduct = 0;
-      console.log("doc: " + doc);
       wordWithTfidfMap.forEach(function (tfidfQuery, wordQuery) {
         console.log("word_q:" + wordQuery + " tfidf_q:" + tfidfQuery);
         getTFIDFFromService(doc, wordQuery).then(function (tfidf) {
@@ -227,6 +226,7 @@ function dotProduct(res, query, uniqueDocsSet, wordWithTfidfMap, queryMagnitude)
                 res.render('results', {
                   title: 'Results',
                   baseUrl: '/',
+                  query: query,
                   docs: similarityByDoc
                 });
               }
@@ -259,6 +259,7 @@ var getTFIDFFromService = function (doc, queryWord) {
         reject(err);
       }
       if (value === null) {
+        console.log("tfidf is null for: "+key);
         resolve(0);
       } else {
         resolve(value);
@@ -275,6 +276,7 @@ var getMagnitudeFromService = function (doc) {
         reject(err);
       }
       if (value === null) {
+        console.log("Magnitude error for: "+key);
         resolve(1);
       } else {
         resolve(value);
