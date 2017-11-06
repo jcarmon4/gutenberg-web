@@ -113,7 +113,7 @@ router.get('/search', function (req, res, next) {
   var wordWithTfidfMap = new Map();
   wordsInQuery.forEach(function (word, i) {
     //Requesting word's idf by word
-    getIDFbyDoc(word).then(function (idf) {
+    getIDFbyDocFromService(word).then(function (idf) {
       wordWithIdfMap.set(word, idf);
       console.log("IDF");
       console.log(i+" word: "+word+" "+idf);
@@ -146,12 +146,12 @@ router.get('/search', function (req, res, next) {
         });
       }
     }).catch(function () {
-      console.log("Promise getIDFbyDoc Rejected");
+      console.log("Promise getIDFbyDocFromService Rejected");
     });
   });
 });
 
-var getIDFbyDoc = function (word) {
+var getIDFbyDocFromService = function (word) {
   var key = "idf:"+word;
   return new Promise(function (resolve, reject) {
     redisClient.get(key, function (err, value) {
