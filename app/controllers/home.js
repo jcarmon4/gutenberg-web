@@ -8,7 +8,7 @@ var SPECIAL_CHARACTERS_RE = new RegExp(/[^A-Za-z]+/gi);
 // var redisClient = redis.createClient("redis://h:padd1089bb3eef4b1bf8c5cd5019461d8f7ad76b4c6960640f882ce0f2a9c86a6@ec2-34-224-49-43.compute-1.amazonaws.com:65139");
 // redisClient.select(1);
 // var redisClient = redis.createClient({host:'localhost', port: '6379', db: 7});
-var redisClient = redis.createClient({host:process.env.AZURE_REDIS_URL_HOST, port: process.env.AZURE_REDIS_PORT, password: process.env.AZURE_REDIS_URL_PASSWORD, db: 1});
+var redisClient = redis.createClient({host:"gutenberg-ir.redis.cache.windows.net", port: "6379", password: "B4qWA879R/U2ldA3mWT5kcJSHrDXOijbd9ju+89PNhg=", db: 1});
 //var redisClient = redis.createClient(process.env.REDIS_URL);
 
 module.exports = function (app) {
@@ -43,6 +43,7 @@ router.post('/doc', function (req, res, next) {
   }).catch(function (error) {
     console.log("Promise relatedDocumentsFromService Rejected");
     console.error(error);
+    res.status(500);
   });
 });
 
@@ -244,9 +245,9 @@ function dotProduct(res, query, uniqueDocsSet, wordWithTfidfMap, queryMagnitude)
   } else {
     console.log("There aren't docs");
     res.render('noResults', {
-        title: 'No Results',
-        query: query
-      });
+      title: 'No Results',
+      query: query
+    });
   }
 }
 

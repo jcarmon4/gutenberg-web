@@ -72,10 +72,12 @@
         for (var i = 0; i< Math.min(10, docs.length); i++) {
           var pathArray = docs[i][0].split("/");
           var name = pathArray[pathArray.length-1]
+          var percent = docs[i][1] * 100;
+          percent = Number((percent).toFixed(3));
           html += '<tr>';
           html += '<td>' + (i+1) + '</td>';
           html += '<td>' + name + '</td>';
-          html += '<td>' + docs[i][1] * 100 + ' % </td>';
+          html += '<td>' + percent + ' % </td>';
           html += '</tr>';
         }
         html += '</tbody>';
@@ -85,7 +87,8 @@
       },
       error: function(error)
       {
-        console.log(error);
+        var html = '<div class="alert alert-danger" role="alert">The community for the selected document has not yet been processed.</div>';
+        $('#target').html(html);
       }
     });
   }
